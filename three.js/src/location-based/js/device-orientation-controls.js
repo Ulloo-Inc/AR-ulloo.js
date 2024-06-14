@@ -131,9 +131,14 @@ class DeviceOrientationControls extends EventDispatcher {
       const device = scope.deviceOrientation;
 
       if (device) {
-        let alpha = device.alpha
-          ? MathUtils.degToRad(device.alpha) + scope.alphaOffset
-          : 0; // Z
+
+        const heading = device.webkitCompassHeading || device.compassHeading || false;
+
+        let alpha = device.alpha || heading ? three__WEBPACK_IMPORTED_MODULE_0__.MathUtils.degToRad(heading? 360-heading : device.alpha || 0) + scope.alphaOffset : 0;
+        
+        // let alpha = device.alpha
+        //   ? MathUtils.degToRad(device.alpha) + scope.alphaOffset
+        //   : 0; // Z
 
         let beta = device.beta ? MathUtils.degToRad(device.beta) : 0; // X'
 
